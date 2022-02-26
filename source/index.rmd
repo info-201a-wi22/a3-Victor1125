@@ -24,8 +24,6 @@ library(usdata)
 ## Data Loading
 incarceration <- read.csv("https://raw.githubusercontent.com/vera-institute/incarceration-trends/master/incarceration_trends.csv")
 
-View(incarceration)
-
 ## Filtered Data for jail rates data
 entire_country_jail_rate <- incarceration %>% mutate(total_jail_rate = round(((total_jail_pop / total_pop)*100),2)) %>% 
   mutate(black_jail_rate = round(((black_jail_pop / black_pop_15to64)*100),2)) %>% mutate(white_jail_rate = round(((white_jail_pop / white_pop_15to64)*100),2)) %>% 
@@ -41,7 +39,6 @@ entire_country_jail_rate <- incarceration %>% mutate(total_jail_rate = round(((t
 ```{r, include=FALSE}
 ## Data of jail rates in south region
 south_states <- entire_country_jail_rate %>% filter(region == "South") %>% slice(31:49)
-View(south_states)
 mean_south_total <- round(mean(south_states$total_jail_rate),2)
 mean_south_white <- round(mean(south_states$white_jail_rate),2)
 mean_south_black <- round(mean(south_states$black_jail_rate),2)
@@ -52,7 +49,6 @@ black_white_diff_south <- south_states %>% mutate(black_white_diff = round((blac
 
 ## Data of jail rates in west region
 west_states <- entire_country_jail_rate %>% filter(region == "West") %>% slice (31:49)
-View(west_states)
 mean_west_total <- round(mean(west_states$total_jail_rate),2)
 mean_west_white <- round(mean(west_states$white_jail_rate),2)
 mean_west_black <- round(mean(west_states$black_jail_rate),2)
@@ -61,11 +57,8 @@ mean_west_black <- round(mean(west_states$black_jail_rate),2)
 black_white_diff_west <- west_states %>% mutate(black_white_diff = round((black_jail_rate / white_jail_rate),2)) %>% 
   select(year, region, black_white_diff)
 
-View(black_white_diff_west)
-
 ## Data of jail rates in south region
 midwest_states <- entire_country_jail_rate %>% filter(region == "Midwest") %>% slice(31:49)
-View(midwest_states)
 mean_midwest_total <- round(mean(midwest_states$total_jail_rate),2)
 mean_midwest_white <- round(mean(midwest_states$white_jail_rate),2)
 mean_midwest_black <- round(mean(midwest_states$black_jail_rate),2)
@@ -176,6 +169,8 @@ final_map <- ggplot(map_data) +
 ```{r}
 final_map
 ```
+
+
 This map demonstrates how much higher jail rate of black people is compared to jail rate of white people in the entire country in 2018. Overall color of the map is yellow which means **the jail rates between the two races are not as significantly different in 2018.** There are some counties that stands out, but ,overall, the jail rates between the two are quite similar.This is a good sign because it means that _the U.S incarceration and jurisdiction system is not completely out of order._ However, it is important to not forget that there are still systemic racism going on in different areas in the United States and it is vital to find a way to fix the system. 
 
 
